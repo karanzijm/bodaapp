@@ -1,0 +1,7 @@
+{
+  "name": "qrReader",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
