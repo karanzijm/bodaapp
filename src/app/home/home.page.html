@@ -1,20 +1,57 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Blank 
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item>
+    <ion-input type="text" placeholder="My QR code Data" [(ngModel)]="qrData">
+
+    </ion-input>
+  </ion-item>
+ 
+  <ion-segment [(ngModel)] = "elementType">
+    <ion-segment-button value="canvas">
+      <ion-label>Canvas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="img">
+      <ion-label>Image</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="url">
+      <ion-label>URL</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-button expand="full" (click)="scanCode()" color="secondary">
+    <ion-icon name="qr-scanner"></ion-icon>
+    Scan Code
+  </ion-button>
+
+  <ion-card *ngIf="qrData" text-center>
+    <ngx-qrcode
+    [elementType] = "elementType"
+    [value] = "qrData"
+    cssClass = "aclass"
+    errorCorrectionLevel = "L"></ngx-qrcode>
+
+    <ion-card-content>
+      <ion-button expand="full" color="tertiary" (click)="downloadQR()"
+        *ngIf="elementType === 'canvas'">
+        <ion-icon name="download" slot="start"></ion-icon>
+        Download QR Code
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
+
+    <ion-card *ngIf="scannedCode">
+      <ion-card-content>
+        Result from Scan: {{ scannedCode }}
+      </ion-card-content>
+    </ion-card>
 </ion-content>
